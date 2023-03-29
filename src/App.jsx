@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BrowserRouter, Routes, Route, NavLink, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 import { auth } from '../firebase-config';
 import { signOut } from "firebase/auth";
 import './App.css';
@@ -27,7 +27,7 @@ function App() {
 			<Routes>
 				<Route path="/" element={<Home/>}></Route>
 				<Route path="/login" element={<Login setIsAuth={setIsAuth}/>}></Route>
-				<Route path="/post" element={<Post/>}></Route>
+				<Route path="/post" element={<Post isAuth={isAuth} setIsAuth={setIsAuth}/>}></Route>
 			</Routes>
 		</BrowserRouter>
   )

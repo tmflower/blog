@@ -15,7 +15,7 @@ export function Login({ setIsAuth }) {
 
 	return (
 		<div className="login">
-			<h1>Sign in with Google</h1>
+			<h1>Log in to create a new post</h1>
 			<button className="login-with-google-btn" onClick={loginWithGoogle}>Sign in with Google</button>
 		</div>
 	)
