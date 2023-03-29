@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { BrowserRouter, Routes, Route, NavLink, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase-config';
 import { signOut } from "firebase/auth";
-import './App.css'
+import './App.css';
 import { Home } from './Home.jsx';
 import { Login } from './Login';
 import { Post } from './Post';
@@ -20,9 +20,9 @@ function App() {
   return (
     <BrowserRouter>
 			<nav>
-				<NavLink to="/"> Home </NavLink>
-				{isAuth ? <NavLink to="/post"> Post </NavLink> : null}
-				{!isAuth ? <NavLink to="/login"> Login </NavLink> : <button id="logout-btn" onClick={logout}><NavLink>Logout</NavLink></button>}
+				<NavLink to="/" className="navlink"> Home </NavLink>
+				{isAuth ? <NavLink to="/post" className="navlink"> Post </NavLink> : null}
+				{!isAuth ? <NavLink to="/login" className="navlink"> Login </NavLink> : <button id="logout-btn" onClick={logout}><NavLink className="navlink">Logout</NavLink></button>}
 			</nav>
 			<Routes>
 				<Route path="/" element={<Home/>}></Route>
