@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getDocs, collection } from 'firebase/firestore';
+import { getDocs, collection, query, orderBy } from 'firebase/firestore';
 import { db } from '../firebase-config';
 import sadie1 from './assets/sadie1.jpg';
 import sadie2 from './assets/sadie2.jpg';
@@ -10,7 +10,7 @@ export function Home() {
 
 	useEffect(() => {
 		async function getPosts() {
-			const myDocs = await getDocs(postsCollectionRef);
+			const myDocs = await getDocs(query(postsCollectionRef, orderBy('date', 'desc')));
 			const data = myDocs.docs.map((doc) => ({...doc.data(), id: doc.id }));
 			setAllPosts(data);
 		}
@@ -31,10 +31,9 @@ export function Home() {
 			{allPosts.map((post, i) => {
 				return <div key={i} className="singlePostContainer">
 							<p className="singlePostTitle">{post.title}</p>
-							<img src="" alt="" className="singlePostImage"/>
-							<img src="" alt="" className="singlePostImage"/>
+							{/* <img src={post.image} alt="" className="singlePostImage"/> */}
 							<p className="singlePostBody">{post.body}</p>
-							<p>posted by {post.author} on {post.date}</p>
+							<p className="author-date">posted by {post.author} on {post.date}</p>
 						</div>
 			})}
 		</div>

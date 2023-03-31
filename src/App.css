@@ -132,6 +132,7 @@
 		text-align: center;
 		margin: 1em;
 		font-weight: 200;
+		font-family: 'Poiret One', cursive;
 	}
 
 	.singlePostContainer {
@@ -146,13 +147,20 @@
 		margin: 1em;
 	}
 
-	/* .singlePostTitle .singlePostDate {
+	.singlePostTitle  {
 		font-weight: 500;
-		font-size: 1.5em;
-	} */
+		font-size: 1.2em;
+	}
 
 	.singlePostBody {
 		font-weight: 200;
+		font-family: 'Lexend', sans-serif;
+	}
+
+	.author-date {
+		font-weight: 200;
+		font-style: italic;
+		font-size: .6em;
 	}
 
 	p {

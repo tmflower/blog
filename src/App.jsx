@@ -6,6 +6,7 @@ import './App.css';
 import { Home } from './Home.jsx';
 import { Login } from './Login';
 import { Post } from './Post';
+import { Sandbox } from './Sandbox';
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -28,6 +29,7 @@ function App() {
 				<Route path="/" element={<Home/>}></Route>
 				<Route path="/login" element={<Login setIsAuth={setIsAuth}/>}></Route>
 				<Route path="/post" element={<Post isAuth={isAuth} setIsAuth={setIsAuth}/>}></Route>
+				<Route path="/sandbox" element={<Sandbox />}></Route>
 			</Routes>
 		</BrowserRouter>
   )
