@@ -35,6 +35,10 @@
 		font-size: 25px;
 	}
 
+	.logo {
+		width: 40px;
+	}
+
 	.login {
 		display: flex;
 		flex-direction: column;
@@ -73,6 +77,10 @@
 		display: flex;
 		flex-direction: column;
 		margin: .5em;
+	}
+
+	#image {
+		border: none;
 	}
 
 	.submitBtn {
@@ -157,6 +165,11 @@
 		font-family: 'Lexend', sans-serif;
 	}
 
+	.singlePostImage {
+		border-radius: 10px;
+		max-width: 200px;
+	}
+
 	.author-date {
 		font-weight: 200;
 		font-style: italic;
@@ -166,6 +179,23 @@
 	p {
 		margin: 2% 0%;
 	}
+
+	.deleteBtn {
+		border: none;
+		font-size: 2em;
+		background-color: transparent;
+		cursor: pointer;
+	}
+
+	.deleteBtn:hover {
+		transform: scale(1.1)
+	}
+
+	.titleAndButtonContainer {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+	}
 }
 
 
@@ -173,7 +203,7 @@
 
 @media screen and (min-width: 600px){
 	.post, input, textarea {
-		font-size: 1.5em;
+		font-size: 1.4em;
 	}
 
 	.postContainer {
@@ -204,6 +234,10 @@
 	.singlePostContainer {
 		width: 80%;
 		font-size: 1.5em;
+	}
+
+	.singlePostImage {
+		max-width: 400px;
 	}
 
 	p {

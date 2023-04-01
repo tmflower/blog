@@ -7,6 +7,7 @@ import { Home } from './Home.jsx';
 import { Login } from './Login';
 import { Post } from './Post';
 import { Sandbox } from './Sandbox';
+import meow from '../meow.png'
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -21,7 +22,7 @@ function App() {
   return (
     <BrowserRouter>
 			<nav>
-				<NavLink to="/" className="navlink"> Home </NavLink>
+				<NavLink to="/" className="navlink"> <img src={meow} alt="clipart of smiling calico cat" className="logo"/></NavLink>
 				{isAuth ? <NavLink to="/post" className="navlink"> Post </NavLink> : null}
 				{!isAuth ? <NavLink to="/login" className="navlink"> Login </NavLink> : <button id="logout-btn" onClick={logout}><NavLink className="navlink">Logout</NavLink></button>}
 			</nav>
