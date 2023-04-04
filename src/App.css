@@ -125,8 +125,13 @@
 		justify-content: center;
 	}
 
+	.headerImages {
+		display: flex;
+		gap: 1em;
+	}
+
 	.mainImage {
-		height: 200px;
+		height: 140px;
 		border-radius: 10%;
 	}
 
@@ -229,6 +234,10 @@
 		gap: 1em;
 	}
 
+	.headerImages {
+		gap: 4em;
+	}
+
 	.mainImage {
 		height: 300px;
 	}
@@ -244,6 +253,7 @@
 
 	.message {
 		width: 40%;
+		font-size: 1.8em;
 	}
 
 	.singlePostContainer {

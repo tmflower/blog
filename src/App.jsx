@@ -18,7 +18,7 @@ function App() {
 	// if there is a logged in user, check if that user is admin
 	// set admin status to true so this can be passed to Home and Post for tasks requiring admin status
 	useEffect(() => {
-		if (auth.currentUser.uid.length) {
+		if (auth.currentUser !== null) {
 			async function confirmAdmin() {
 				if (auth.currentUser.uid == adminId) {
 					setIsAdmin(true);
@@ -41,7 +41,7 @@ function App() {
 		<BrowserRouter>
 				<nav>
 					<NavLink to="/" className="navlink"> <img src={meow} alt="clipart of smiling calico cat" className="logo"/></NavLink>
-					{isAuth ? <NavLink to="/post" className="navlink"> Post </NavLink> : null}
+					{isAuth ? <NavLink to="/post" className="navlink"> New Post </NavLink> : null}
 					{!isAuth ? <NavLink to="/login" className="navlink"> Login </NavLink> : <button id="logout-btn" onClick={logout}><NavLink className="navlink">Logout</NavLink></button>}
 				</nav>
 				<Routes>

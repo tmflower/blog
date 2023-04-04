@@ -25,7 +25,7 @@ export function Post({ isAuth, setIsAuth, isAdmin }) {
 	}
 
 	const [formData, setFormData] = useState(initialState);
-	
+
 	const {title, body} = formData;
 
 	// redirect user to login page if not logged in
@@ -33,6 +33,7 @@ export function Post({ isAuth, setIsAuth, isAdmin }) {
 		async function checkAuth() {
 			setIsAuth(localStorage.getItem('isAuth'));
 			if (!isAuth) window.location.pathname = "/login";
+			if (isAdmin) setIsApproved(true);
 		}
 		checkAuth();
 	}, []);
@@ -72,8 +73,6 @@ export function Post({ isAuth, setIsAuth, isAdmin }) {
 	// non-admin user gets an informational message
 	async function addPost(evt) {
 		evt.preventDefault();
-		if (isAdmin) setIsApproved(true);
-		setIsApproved(false);
 		const newPost = {
 			title,
 			body,
@@ -83,13 +82,14 @@ export function Post({ isAuth, setIsAuth, isAdmin }) {
 			authorId: auth.currentUser.uid,
 			isApproved
 		}
+		await addDoc(postsCollectionRef, newPost);
 		if  (isApproved) {
-			await addDoc(postsCollectionRef, newPost);
 			setFormData(initialState);
 			navigate('/');
 		}
 		else {
 			setMessage(`Thanks! Admin will review your post. If approved you'll see it here soon!`);
+			// TODO: set notification to admin when new post is pending approval
 		}
 	}
 
