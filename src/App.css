@@ -143,6 +143,17 @@
 		font-family: 'Poiret One', cursive;
 	}
 
+	.message {
+		color:rgba(16, 111, 8, 0.814);
+		background-color: white;
+		border: 3px solid rgba(16, 111, 8, 0.814);
+		padding: .5em;
+		border-radius: 10px;
+		text-align: center;
+		font-family: 'Poiret One', cursive;
+		width: 70%;
+	}
+
 	.singlePostContainer {
 		width: 70%;
 		display: flex;
@@ -231,8 +242,12 @@
 		width: 80%;
 	}
 
+	.message {
+		width: 40%;
+	}
+
 	.singlePostContainer {
-		width: 80%;
+		width: 60%;
 		font-size: 1.5em;
 	}
 

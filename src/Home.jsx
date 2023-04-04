@@ -4,22 +4,26 @@ import { db } from '../firebase-config';
 import sadie1 from './assets/sadie1.jpg';
 import sadie2 from './assets/sadie2.jpg';
 
-export function Home() {
+export function Home( { isAdmin }) {
+	// set variables for accessing and rendering content of posts
 	const [allPosts, setAllPosts] = useState([]);
-
 	const postsCollectionRef = collection(db, "blogPosts");
+
+	// if user confirms yes, remove the selected post from Firestore
 	const deletePost = async (id) => {
-		// TODO: check if user is owner of post (or consider rendering button conditionally)
 		if (window.confirm("Are you sure you want to permanently delete this post?")) {
 			const selectedDoc = doc(db, "blogPosts", id)
 			await deleteDoc(selectedDoc);
 		}
 	}
 
+	// when the page loads and when a post is deleted, get all the posts and their content with the most recent post first
+	// add an id to each document; this will be used when deleting a post
 	useEffect(() => {
 		async function getPosts() {
 			const myDocs = await getDocs(query(postsCollectionRef, orderBy('date', 'desc')));
 			const data = myDocs.docs.map((doc) => ({...doc.data(), id: doc.id }));
+			// TODO: add filter to only show posts with status of 'isApproved' (currently in Post)
 			setAllPosts(data);
 		}
 		getPosts();
@@ -32,7 +36,7 @@ export function Home() {
 				<h1>SadieCat Learns to Code</h1>
 
 			</div>
-			<p className="intro">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+			<p className="intro">When I started learning how to code, my cat Sadie took a keen interest in learning with me. My goal in writing this blog is to document some of the things I'm learning and communicate them in a way that even Sadie can understand.</p>
 
 			<img src={sadie2} alt="fluffy calico cat lying on desk with head resting on mousepad and paws on keyboard" className="mainImage"/>
 
@@ -40,7 +44,9 @@ export function Home() {
 				return <div key={i} className="singlePostContainer">
 							<div className="titleAndButtonContainer">
 								<p className="singlePostTitle">{post.title}</p>
-								<button className="deleteBtn" onClick={() => deletePost(post.id)}>&#x1f6ae;</button>
+								{post.authorId === auth.currentUser.uid || isAdmin ?
+								<button className="deleteBtn" onClick={() => deletePost(post.id)}>&#x1f6ae;</button>:
+								null}
 							</div>
 							<img src={post.imageUrl} alt="" className="singlePostImage"/>
 							<p className="singlePostBody">{post.body}</p>

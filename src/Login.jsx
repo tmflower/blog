@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 
 export function Login({ setIsAuth }) {
 
+	// set variable for function to redirect user
 	const navigate = useNavigate();
 
+	// function to handle user login with Firebase authorization Google pop-up tool
 	async function loginWithGoogle() {
 		await signInWithPopup(auth, provider);
 		localStorage.setItem("isAuth", true);
