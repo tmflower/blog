@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getDocs, collection, query, orderBy, doc, addDoc, deleteDoc, where } from 'firebase/firestore';
+import { getDocs, collection, query, orderBy, doc, deleteDoc, where } from 'firebase/firestore';
 import { db, auth } from '../firebase-config';
 import sadie1 from './assets/sadie1.jpg';
 import sadie2 from './assets/sadie2.jpg';

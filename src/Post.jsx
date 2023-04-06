@@ -17,6 +17,7 @@ export function Post({ isAuth, setIsAuth, isAdmin }) {
 
 	// set variable to reference the collection of all posts in Firestore
 	const postsCollectionRef = collection(db, "blogPosts");
+	const pendingCollectionRef = collection(db, "pendingPosts");
 
 	// set form values to blank
 	const initialState = {
@@ -89,7 +90,7 @@ export function Post({ isAuth, setIsAuth, isAdmin }) {
 		}
 		else {
 			setMessage(`Thanks! Admin will review your post. If approved you'll see it here soon!`);
-			// TODO: set notification to admin when new post is pending approval
+			await addDoc(pendingCollectionRef, newPost);
 		}
 	}
 
