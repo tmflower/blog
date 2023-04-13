@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getDocs, collection, query, orderBy, doc, deleteDoc, where } from 'firebase/firestore';
+import { getDocs, collection, query, orderBy, doc, deleteDoc, where, limit } from 'firebase/firestore';
 import { db, auth } from '../firebase-config';
 import sadie1 from './assets/sadie1.jpg';
 import sadie2 from './assets/sadie2.jpg';
@@ -9,11 +9,15 @@ export function Home( { isAdmin }) {
 	const [allPosts, setAllPosts] = useState([]);
 	const postsCollectionRef = collection(db, "blogPosts");
 
+	// create dependency for useEffect to reload posts when a post is deleted
+	const [didDelete, setDidDelete] = useState(false);
+
 	// if user confirms yes, remove the selected post from Firestore
 	const deletePost = async (id) => {
 		if (window.confirm("Are you sure you want to permanently delete this post?")) {
 			const selectedDoc = doc(db, "blogPosts", id)
 			await deleteDoc(selectedDoc);
+			setDidDelete(true);
 		}
 	}
 
@@ -21,13 +25,13 @@ export function Home( { isAdmin }) {
 	// add an id to each document; this will be used when deleting a post
 	// return only posts with status of 'isApproved'
 	useEffect(() => {
-		async function getPosts() {
-			const myDocs = await getDocs(query(postsCollectionRef, where("isApproved", "==", true), orderBy('date', 'desc')));
+		async function getPosts() { console.log("running useEffect getPosts")
+			const myDocs = await getDocs(query(postsCollectionRef, where("isApproved", "==", true), orderBy('date', 'desc'), limit(10)));
 			const data = myDocs.docs.map((doc) => ({...doc.data(), id: doc.id }));
 			setAllPosts(data);
 		}
 		getPosts();
-	}, [deletePost]);
+	}, [didDelete]);
 
 	return (
 		<div className="home">
@@ -47,7 +51,7 @@ export function Home( { isAdmin }) {
 					return <div key={i} className="singlePostContainer">
 								<div className="titleAndButtonContainer">
 									<p className="singlePostTitle">{post.title}</p>
-									{auth.currentUser && post.authorId === auth.currentUser.uid || isAdmin ?
+									{(auth.currentUser && post.authorId === auth.currentUser.uid) || isAdmin ?
 									<button className="deleteBtn" onClick={() => deletePost(post.id)}>&#x1f6ae;</button>:
 									null}
 								</div>

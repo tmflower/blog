@@ -30,7 +30,7 @@ export function Post({ isAuth, setIsAuth, isAdmin }) {
 	const {title, body} = formData;
 
 	// redirect user to login page if not logged in
-	useEffect(() => {
+	useEffect(() => { console.log("running useEffect checkAuth")
 		async function checkAuth() {
 			setIsAuth(localStorage.getItem('isAuth'));
 			if (!isAuth) window.location.pathname = "/login";
@@ -40,7 +40,7 @@ export function Post({ isAuth, setIsAuth, isAdmin }) {
 	}, []);
 
 	// save the current date to be added to the post object
-	useEffect(() => {
+	useEffect(() => { console.log("running useEffect getDate")
 		async function getDate() {
 			let currentDate = new Date();
 			setDate(currentDate.toString());

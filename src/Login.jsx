@@ -2,7 +2,9 @@ import { auth, provider } from "../firebase-config";
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
-export function Login({ setIsAuth }) {
+const adminId = "JpPamWIU2tdsg2TRziSSFhLZmGr1";
+
+export function Login({ setIsAuth, setIsAdmin }) {
 
 	// set variable for function to redirect user
 	const navigate = useNavigate();
@@ -12,6 +14,9 @@ export function Login({ setIsAuth }) {
 		await signInWithPopup(auth, provider);
 		localStorage.setItem("isAuth", true);
 		setIsAuth(true);
+		if (auth.currentUser.uid == adminId) {
+			setIsAdmin(true);
+		}
 		navigate('/');
 	}
 

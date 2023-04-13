@@ -1,0 +1,3 @@
+Posts are not displaying in descending order by date; check syntax for query ('where' clause is working correctly for isApproved though)
+
+

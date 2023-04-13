@@ -8,25 +8,26 @@ import { Login } from './Login';
 import { Post } from './Post';
 import meow from '../meow.png'
 
-const adminId = "JpPamWIU2tdsg2TRziSSFhLZmGr1";
+// const adminId = "JpPamWIU2tdsg2TRziSSFhLZmGr1";
 
 function App() {
 	// set default status of user to not logged in and not admin
+	// these states will be updated when user logs in
 	const [isAuth, setIsAuth] = useState(false);
 	const [isAdmin, setIsAdmin] = useState(false);
 
 	// if there is a logged in user, check if that user is admin
 	// set admin status to true so this can be passed to Home and Post for tasks requiring admin status
-	useEffect(() => {
-		if (auth.currentUser !== null) {
-			async function confirmAdmin() {
-				if (auth.currentUser.uid == adminId) {
-					setIsAdmin(true);
-				}
-			}
-			confirmAdmin();
-		}
-	}, [auth]);
+	// useEffect(() => {
+	// 	if (auth.currentUser !== null) { console.log("running useEffect confirmAdmin")
+	// 		async function confirmAdmin() {
+	// 			if (auth.currentUser.uid == adminId) {
+	// 				setIsAdmin(true);
+	// 			}
+	// 		}
+	// 		confirmAdmin();
+	// 	}
+	// }, []);
 
 	// use Firebase method to sign user out when "Logout" is selected
 	// change locally stored user status to logged out
@@ -46,7 +47,7 @@ function App() {
 				</nav>
 				<Routes>
 					<Route path="/" element={<Home isAdmin={isAdmin}/>}></Route>
-					<Route path="/login" element={<Login setIsAuth={setIsAuth}/>}></Route>
+					<Route path="/login" element={<Login setIsAuth={setIsAuth} setIsAdmin={setIsAdmin}/>}></Route>
 					<Route path="/post" element={<Post isAuth={isAuth} setIsAuth={setIsAuth} isAdmin={isAdmin}/>}></Route>
 				</Routes>
 			</BrowserRouter>
